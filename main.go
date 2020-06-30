@@ -1,8 +1,9 @@
 package main
 
 import (
-	"coursera-web-services/week1"
+	"fmt"
 	"os"
+	"time"
 )
 
 func callWeek1() {
@@ -16,6 +17,26 @@ func callWeek1() {
 	if err != nil {
 		panic(err.Error())
 	}
+
+}
+
+func callWeek2() {
+	//inputData := []int{0, 1}
+	inputData := []int{0, 1, 1, 2, 3, 5, 8}
+	hashSignJobs := []job{
+		job(func(in, out chan interface{}) {
+			for _, fibNum := range inputData {
+				out <- fibNum
+			}
+		}),
+		job(SingleHash),
+		job(MultiHash),
+		job(CombineResults),
+	}
+
+	start = time.Now()
+	ExecutePipeline(hashSignJobs...)
+	fmt.Println("MAIN END", time.Since(start))
 }
 
 func main() {
